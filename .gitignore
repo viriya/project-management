@@ -17,6 +17,7 @@
 
 # misc
 .DS_Store
+next.config.js
 
 # debug
 npm-debug.log*
