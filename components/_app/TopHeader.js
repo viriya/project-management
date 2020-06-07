@@ -23,11 +23,13 @@ export default ({ user }) => {
           </Menu.Item>
         </Link>
         {user && (
-          <Link href="new">
-            <Menu.Item header>
-              <Icon name="file alternate outline" size="large" />
-              New Project
-            </Menu.Item>
+          <Link href="/new">
+            <a>
+              <Menu.Item header>
+                <Icon name="file alternate outline" size="large" />
+                New Project
+              </Menu.Item>
+            </a>
           </Link>
         )}
 
