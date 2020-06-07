@@ -24,7 +24,7 @@ const Home = ({ projects }) => (
           return (
             <Table.Row key={p._id.toString()}>
               <Table.Cell>
-                <Link href={`/project/${p._id}`}>
+                <Link href="project/[_id]" as={`project/${p._id.toString()}`}>
                   <a>{p.name}</a>
                 </Link>
               </Table.Cell>
