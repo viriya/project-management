@@ -1,7 +1,7 @@
 import Project from '../../models/Project';
 import db from '../../utils/db';
 import jwt from 'jsonwebtoken';
-
+const { userId } = jwt.verify(req.headers.authorization, JWT_SECRET);
 db();
 
 export default async (req, res) => {
@@ -36,10 +36,7 @@ async function handlePostRequest(req, res) {
     if (!task) {
       return res.status(422).send('Missing task field');
     }
-    const { userId } = jwt.verify(
-      req.headers.authorization,
-      process.env.JWT_SECRET
-    );
+    const { userId } = jwt.verify(req.headers.authorization, JWT_SECRET);
 
     const project = await Project.findOneAndUpdate(
       { _id: projectId },
@@ -62,10 +59,7 @@ async function handleDeleteRequest(req, res) {
     if (!projectId || !taskId) {
       return res.status(422).send('missing task field');
     }
-    const { userId } = jwt.verify(
-      req.headers.authorization,
-      process.env.JWT_SECRET
-    );
+    const { userId } = jwt.verify(req.headers.authorization, JWT_SECRET);
 
     const project = await Project.findOneAndUpdate(
       { _id: projectId },

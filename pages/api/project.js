@@ -1,7 +1,7 @@
 import Project from '../../models/Project';
 import db from '../../utils/db';
 import jwt from 'jsonwebtoken';
-
+const JWT_SECRET = 'TC6T9Urte049vkuKGSMT2v3Z0CpWGUzz';
 db();
 
 export default async (req, res) => {
@@ -22,6 +22,7 @@ export default async (req, res) => {
 };
 
 async function handleGetRequest(req, res) {
+  const { userId } = jwt.verify(req.headers.authorization, JWT_SECRET);
   const { _id } = req.query;
   const project = await Project.findOne({ _id });
   res.status(200).json({ project });
@@ -36,10 +37,7 @@ async function handlePostRequest(req, res) {
     if (!name || !description) {
       return res.status(422).send('Project missing one or more fields');
     }
-    const { userId } = jwt.verify(
-      req.headers.authorization,
-      process.env.JWT_SECRET
-    );
+    const { userId } = jwt.verify(req.headers.authorization, JWT_SECRET);
     const project = await new Project({
       name,
       description,

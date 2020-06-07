@@ -2,7 +2,7 @@ import db from '../../utils/db';
 import User from '../../models/User';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
+const JWT_SECRET = 'TC6T9Urte049vkuKGSMT2v3Z0CpWGUzz';
 db();
 
 export default async (req, res) => {
@@ -18,7 +18,7 @@ export default async (req, res) => {
     const passwordsMatch = await bcrypt.compare(password, user.password);
     // 4) --if so, generate a token
     if (passwordsMatch) {
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      const token = jwt.sign({ userId: user._id }, JWT_SECRET, {
         expiresIn: '7d',
       });
       // 5) send that token to the client

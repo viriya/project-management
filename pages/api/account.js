@@ -1,7 +1,7 @@
 import User from '../../models/User';
 import jwt from 'jsonwebtoken';
 import db from '../../utils/db';
-
+const JWT_SECRET = 'TC6T9Urte049vkuKGSMT2v3Z0CpWGUzz';
 db();
 
 export default async (req, res) => {
@@ -10,10 +10,7 @@ export default async (req, res) => {
   }
 
   try {
-    const { userId } = jwt.verify(
-      req.headers.authorization,
-      process.env.JWT_SECRET
-    );
+    const { userId } = jwt.verify(req.headers.authorization, JWT_SECRET);
     const user = await User.findOne({ _id: userId });
     if (user) {
       res.status(200).json(user);
