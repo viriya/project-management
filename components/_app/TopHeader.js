@@ -34,12 +34,11 @@ export default ({ user }) => {
         <Menu.Menu position="right">
           {user ? (
             <>
-              <Link href="/user">
-                <Menu.Item header>
-                  <Icon name="user outline" size="large" />
-                  {user.name}
-                </Menu.Item>
-              </Link>
+              <Menu.Item header>
+                <Icon name="user outline" size="large" />
+                {user.name}
+              </Menu.Item>
+
               <Menu.Item header onClick={handleLogout}>
                 <Icon name="sign out" size="large" />
                 Logout
