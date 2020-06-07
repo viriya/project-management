@@ -140,9 +140,11 @@ projectDetail.getInitialProps = async (ctx) => {
   if (!token) {
     return { project: [] };
   }
-  const payload = { headers: { Authorization: token } };
-  const params = { params: { _id } };
-  const response = await axiosapi.get('api/project', params, payload);
+  const payload = {
+    params: { _id },
+    headers: { Authorization: token },
+  };
+  const response = await axiosapi.get('api/project', payload);
   return response.data;
 };
 
