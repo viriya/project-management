@@ -1,7 +1,7 @@
 import Project from '../../models/Project';
 import db from '../../utils/db';
 import jwt from 'jsonwebtoken';
-const { userId } = jwt.verify(req.headers.authorization, JWT_SECRET);
+const JWT_SECRET = 'TC6T9Urte049vkuKGSMT2v3Z0CpWGUzz';
 db();
 
 export default async (req, res) => {

@@ -4,7 +4,8 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import isEmail from 'validator/lib/isEmail';
 import isLength from 'validator/lib/isLength';
-const { userId } = jwt.verify(req.headers.authorization, JWT_SECRET);
+const JWT_SECRET = 'TC6T9Urte049vkuKGSMT2v3Z0CpWGUzz';
+
 db();
 
 export default async (req, res) => {
