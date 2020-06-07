@@ -15,6 +15,9 @@ export default async (req, res) => {
     case 'DELETE':
       await handleDeleteRequest(req, res);
       break;
+    case 'PUT':
+      await handlePutRequest(req, res);
+      break;
     default:
       res.status(405).send(`Method ${req.method} not allowed`);
       break;
@@ -64,6 +67,30 @@ async function handleDeleteRequest(req, res) {
     const project = await Project.findOneAndUpdate(
       { _id: projectId },
       { $pull: { tasks: { _id: taskId } } },
+      { new: true }
+    );
+    console.log(project);
+    res.status(201).json(project.tasks);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Server error in adding task');
+  }
+}
+
+async function handlePutRequest(req, res) {
+  if (!('authorization' in req.headers)) {
+    return res.status(401).send('No authorization token');
+  }
+  const { projectId, taskId, completed } = req.body;
+  try {
+    if (!projectId || !taskId) {
+      return res.status(422).send('missing task field');
+    }
+    const { userId } = jwt.verify(req.headers.authorization, JWT_SECRET);
+
+    const project = await Project.findOneAndUpdate(
+      { _id: projectId, 'tasks._id': taskId },
+      { $set: { 'tasks.$.completed': completed } },
       { new: true }
     );
     console.log(project);

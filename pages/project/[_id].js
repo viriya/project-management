@@ -52,9 +52,9 @@ const projectDetail = ({ project }) => {
     // newTasks[index].completed = data.checked;
     // setTasks(newTasks);
     const headers = { headers: { Authorization: token } };
-    const params = { projectId: project._id, taskId, complete: data.checked };
+    const params = { projectId: project._id, taskId, completed: data.checked };
     // console.log(params);
-    const res = await axiosapi.put('api/updateTask', params, headers);
+    const res = await axiosapi.put('api/task', params, headers);
     setTasks(res.data);
   }
 
